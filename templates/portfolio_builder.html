@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% block content %}
+<div style="max-width: 800px; margin: 40px auto; padding: 0 24px;">
+    <h1 style="margin-bottom: 16px;">Portfolio Builder</h1>
+    <p style="color: #64748B; margin-bottom: 32px;">Publish a public portfolio directly from your resume details.</p>
+
+    <div style="background: white; padding: 32px; border-radius: 12px; border: 1px solid #E2E8F0;">
+        <form id="portfolio-form">
+            <div style="margin-bottom: 20px;">
+                <label style="display: block; margin-bottom: 8px; font-weight: 600;">Choose Base Resume</label>
+                <select name="resume_id" style="width: 100%; padding: 10px; border: 1px solid #CBD5E1; border-radius: 6px;">
+                    {% for r in resumes %}
+                        <option value="{{ r.id }}" {% if portfolio and portfolio.resume_id == r.id %}selected{% endif %}>{{ r.title }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div style="margin-bottom: 20px;">
+                <label style="display: block; margin-bottom: 8px; font-weight: 600;">Custom Username (Public Slug)</label>
+                <input type="text" name="username" value="{{ portfolio.username if portfolio else '' }}" required style="width: 100%; padding: 10px; border: 1px solid #CBD5E1; border-radius: 6px;">
+            </div>
+
+            <div style="margin-bottom: 20px;">
+                <label style="display: block; margin-bottom: 8px; font-weight: 600;">Select Theme</label>
+                <select name="theme" style="width: 100%; padding: 10px; border: 1px solid #CBD5E1; border-radius: 6px;">
+                    <option value="modern" {% if portfolio and portfolio.theme == 'modern' %}selected{% endif %}>Modern</option>
+                    <option value="minimal" {% if portfolio and portfolio.theme == 'minimal' %}selected{% endif %}>Minimal</option>
+                </select>
+            </div>
+
+            <div style="margin-bottom: 24px; display: flex; align-items: center; gap: 8px;">
+                <input type="checkbox" name="is_public" id="is_public" {% if not portfolio or portfolio.is_public %}checked{% endif %}>
+                <label for="is_public">Publish Online Immediately</label>
+            </div>
+
+            <button type="submit" class="btn btn-primary" style="width: 100%; padding: 12px;">Save Portfolio Configuration</button>
+        </form>
+
+        {% if portfolio %}
+            <div style="margin-top: 24px; text-align: center;">
+                <a href="{{ url_for('portfolio.public_view', username=portfolio.username) }}" target="_blank" style="color: #6366F1; text-decoration: none; font-weight: 600;">
+                    <i class="fas fa-external-link-alt"></i> View Published Portfolio Page
+                </a>
+            </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}ResumeAI — AI-Powered Builder{% endblock %}</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    {% block extra_css %}{% endblock %}
+</head>
+<body>
+    <header class="app-header">
+        <a href="{{ url_for('auth.index') }}" class="brand-logo">
+            <i class="fas fa-magic"></i>
+            <span>ResumeAI</span>
+        </a>
+        <nav style="display: flex; gap: 16px; align-items: center;">
+            {% if g.user %}
+                <a href="{{ url_for('dashboard.dashboard') }}" class="btn btn-secondary"><i class="fas fa-chart-line"></i> Dashboard</a>
+                <a href="{{ url_for('auth.settings') }}" class="btn btn-secondary"><i class="fas fa-cog"></i> Settings</a>
+                <a href="{{ url_for('auth.logout') }}" class="btn btn-secondary"><i class="fas fa-sign-out-alt"></i> Logout</a>
+            {% else %}
+                <a href="{{ url_for('auth.login') }}" class="btn btn-secondary">Login</a>
+                <a href="{{ url_for('auth.register') }}" class="btn btn-primary">Get Started</a>
+            {% endif %}
+        </nav>
+    </header>
+
+    <main class="app-body">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                <div style="max-width: 1200px; margin: 16px auto; padding: 0 24px;">
+                    {% for category, message in messages %}
+                        <div class="toast toast-{{ category }}" style="position: static; width: 100%; margin-bottom: 8px;">
+                            <i class="fas fa-info-circle"></i>
+                            <span>{{ message }}</span>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        {% endwith %}
+
+        {% block content %}{% endblock %}
+    </main>
+
+    <div id="toast-container"></div>
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+    {% block extra_js %}{% endblock %}
+</body>
+</html>

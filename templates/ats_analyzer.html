@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% block content %}
+<div style="max-width: 900px; margin: 40px auto; padding: 0 24px;">
+    <h1 style="margin-bottom: 16px;">ATS Compatibility Matcher</h1>
+    <p style="color: #64748B; margin-bottom: 32px;">Optimize your resume score against targeted job listings with hybrid scoring.</p>
+
+    <div style="background: white; padding: 32px; border-radius: 12px; border: 1px solid #E2E8F0; margin-bottom: 32px;">
+        <div style="margin-bottom: 20px;">
+            <label style="display: block; margin-bottom: 8px; font-weight: 600;">Select Target Resume</label>
+            <select id="ats-resume-select" style="width: 100%; padding: 10px; border: 1px solid #CBD5E1; border-radius: 6px;">
+                {% for r in resumes %}
+                    <option value="{{ r.id }}">{{ r.title }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        
+        <div style="margin-bottom: 20px;">
+            <label style="display: block; margin-bottom: 8px; font-weight: 600;">Job Title</label>
+            <input type="text" id="ats-job-title" placeholder="e.g. Senior Backend Engineer" style="width: 100%; padding: 10px; border: 1px solid #CBD5E1; border-radius: 6px;">
+        </div>
+
+        <div style="margin-bottom: 24px;">
+            <label style="display: block; margin-bottom: 8px; font-weight: 600;">Paste Job Description</label>
+            <textarea id="ats-job-desc" rows="8" style="width: 100%; padding: 10px; border: 1px solid #CBD5E1; border-radius: 6px;"></textarea>
+        </div>
+
+        <button id="btn-run-ats" class="btn btn-primary" style="width: 100%; padding: 12px;">Run Match Analysis</button>
+    </div>
+
+    <!-- Results Display -->
+    <div id="ats-results" style="display: none; background: white; padding: 32px; border-radius: 12px; border: 1px solid #E2E8F0;">
+        <div style="text-align: center; margin-bottom: 32px;">
+            <h3>Overall ATS Compatibility Score</h3>
+            <div id="score-display" style="font-size: 3.5rem; font-weight: 800; color: #6366F1; margin: 16px 0;">0%</div>
+        </div>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px;">
+            <div>
+                <h4 style="color: #22C55E; margin-bottom: 8px;">Matched Keywords</h4>
+                <ul id="matched-keywords-list" style="padding-left: 20px; color: #475569;"></ul>
+            </div>
+            <div>
+                <h4 style="color: #EF4444; margin-bottom: 8px;">Missing Keywords</h4>
+                <ul id="missing-keywords-list" style="padding-left: 20px; color: #475569;"></ul>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{{ url_for('static', filename='js/ats.js') }}"></script>
+{% endblock %}

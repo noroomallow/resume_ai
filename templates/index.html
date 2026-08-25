@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% block content %}
+<section style="padding: 80px 24px; text-align: center; background: linear-gradient(180deg, #F8FAFC 0%, #EEF2FF 100%);">
+    <div style="max-width: 800px; margin: 0 auto;">
+        <h1 style="font-size: 3rem; font-weight: 800; color: #0F172A; line-height: 1.2; margin-bottom: 20px;">
+            Build a Resume That Gets Noticed.
+        </h1>
+        <p style="font-size: 1.25rem; color: #64748B; margin-bottom: 32px;">
+            Create ATS-friendly resumes and stunning portfolios with the power of Gemini 2.5 AI.
+        </p>
+        <div style="display: flex; gap: 16px; justify-content: center;">
+            <a href="{{ url_for('auth.register') }}" class="btn btn-primary" style="padding: 14px 28px; font-size: 1rem;">Build My Resume</a>
+            <a href="#features" class="btn btn-secondary" style="padding: 14px 28px; font-size: 1rem;">Explore Features</a>
+        </div>
+    </div>
+</section>
+
+<section id="features" style="max-width: 1200px; margin: 80px auto; padding: 0 24px;">
+    <h2 style="text-align: center; margin-bottom: 48px; font-size: 2rem;">Engineered for Career Acceleration</h2>
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 32px;">
+        <div style="background: white; padding: 32px; border-radius: 12px; border: 1px solid #E2E8F0;">
+            <i class="fas fa-robot" style="font-size: 2rem; color: #6366F1; margin-bottom: 16px;"></i>
+            <h3 style="margin-bottom: 8px;">AI Content Optimization</h3>
+            <p style="color: #64748B;">Transform basic drafts into impactful, ATS-optimized bullet points powered by Gemini AI.</p>
+        </div>
+        <div style="background: white; padding: 32px; border-radius: 12px; border: 1px solid #E2E8F0;">
+            <i class="fas fa-chart-pie" style="font-size: 2rem; color: #8B5CF6; margin-bottom: 16px;"></i>
+            <h3 style="margin-bottom: 8px;">ATS Match Analyzer</h3>
+            <p style="color: #64748B;">Score your resume against real job descriptions to reveal key gaps before applying.</p>
+        </div>
+        <div style="background: white; padding: 32px; border-radius: 12px; border: 1px solid #E2E8F0;">
+            <i class="fas fa-globe" style="font-size: 2rem; color: #22C55E; margin-bottom: 16px;"></i>
+            <h3 style="margin-bottom: 8px;">Instant Web Portfolios</h3>
+            <p style="color: #64748B;">Turn your structured resume data into a published personal website with one click.</p>
+        </div>
+    </div>
+</section>
+{% endblock %}
